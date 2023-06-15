@@ -1,57 +1,26 @@
-// ignore: depend_on_referenced_packages
-import 'package:get/get.dart';
-import 'package:newpro/app_constants.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'dart:convert';
+import 'package:http/http.dart' as http;
+import 'package:newpro/models/data_loger_item.dart';
 
-class ApiClent extends GetConnect implements GetxService {
-  late String token;
-  final String appBaseUrl;
+class Api {
+  static const String baseUrl =
+      'http://cash.pythonanywhere.com/user/logger/data';
+  static const Map<String, String> headers = {
+    'Cookie':
+        'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VybmFtZSI6ImRlbm55IiwiZXhwIjoxNjg5MzQ3Mzg2fQ.8r6ZY8dRVD6-9C9mxXToeCPkC-Fgq6lO7BhEf1KPNuM.eyJ1c2VybmFtZSI6ImRlbm55IiwiZXhwIjoxNjg2MzU3MzI1fQ.EuEL1JltNcPyD7AR8FpMxQKEgAy43CdHNOS8ezLYWRY',
+    'Data-logger-name': 'denny_data_logger_1',
+    'Accept': ' */*'
+  };
 
-  late SharedPreferences sharedPreferences;
-
-  late Map<String, String> _mainHeaders;
-  ApiClent({required this.appBaseUrl, required this.sharedPreferences}) {
-    baseUrl = appBaseUrl;
-    timeout = Duration(seconds: 30);
-    // token = AppConstants.TOKEN;
-    token = sharedPreferences.getString(AppConstants.TOKEN) ?? "";
-    _mainHeaders = {
-      'Content-type': 'application/json; charset=UTF-8',
-      'Authorization': 'Bearer  $token',
-    };
-  }
-  void updateHeader(String token) {
-    _mainHeaders = {
-      'Content-type': 'application/json; charset=UTF-8',
-      'Authorization': 'Bearer  $token',
-    };
-  }
-
-  Future<Response> getData(String uri, {Map<String, String>? headers}) async {
-    try {
-      Response response = await get(uri, headers: headers ?? _mainHeaders);
-      return response;
-    } catch (e) {
-      return Response(statusCode: 1, statusText: e.toString());
-    }
-  }
-
-  Future<Response> posData(String uri, dynamic body) async {
-    try {
-      Response response = await post(
-          "http:/cash.pythonanywhere.com/user/login",
-          {
-            "username": "example",
-            "password": "example",
-            "hashedData": "sigridkeyeasteregg",
-          },
-          headers: _mainHeaders);
-      print("sad22222as" + response.statusText.toString());
-      return response;
-    } catch (e) {
-      print(e.toString());
-      print(e.toString());
-      return Response(statusCode: 1, statusText: e.toString());
+  static Future<List<Dataloger>> fetchDataLogerInfo() async {
+    final response = await http.post(Uri.parse(baseUrl), headers: headers);
+    if (response.statusCode == 200) {
+      final List<dynamic> jsonList = json.decode(response.body);
+      final List<Dataloger> dataloger =
+          jsonList.map((json) => Dataloger.fromJson(json)).toList();
+      return dataloger;
+    } else {
+      throw Exception('Failed to load data');
     }
   }
 }

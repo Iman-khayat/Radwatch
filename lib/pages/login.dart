@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
+import 'package:newpro/api/api_client.dart';
+import 'package:newpro/models/data_loger_item.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 // final usernameController = TextEditingController();
@@ -100,30 +102,33 @@ class login extends StatelessWidget {
               ElevatedButton(
                 onPressed: () async {
                   // _login(authController);
-                  var url =
-                      Uri.parse('http://cash.pythonanywhere.com/user/login');
-                  var body = {
-                    "username": "example",
-                    "password": "example",
-                    "hashedData": "sigridkeyeasteregg",
-                  };
-                  var headers = {
-                    "Content-Type": "application/json",
-                  };
 
-                  try {
-                    var response = await http.post(
-                      url,
-                      headers: headers,
-                      body: jsonEncode(body),
-                    );
-                    saveToken(response.body);
-                    print('Response status: ${response.statusCode}');
-                    print('Response body: ${response.body}');
-                    getToken();
-                  } catch (e) {
-                    print('Error: $e');
-                  }
+                  List<Dataloger> d1 = await Api.fetchDataLogerInfo();
+
+                  // var url =
+                  //     Uri.parse('http://cash.pythonanywhere.com/user/login');
+                  // var body = {
+                  //   "username": "example",
+                  //   "password": "example",
+                  //   "hashedData": "sigridkeyeasteregg",
+                  // };
+                  // var headers = {
+                  //   "Content-Type": "application/json",
+                  // };
+
+                  // try {
+                  //   var response = await http.post(
+                  //     url,
+                  //     headers: headers,
+                  //     body: jsonEncode(body),
+                  //   );
+                  //   saveToken(response.body);
+                  //   print('Response status: ${response.statusCode}');
+                  //   print('Response body: ${response.body}');
+                  //   getToken();
+                  // } catch (e) {
+                  //   print('Error: $e');
+                  // }
 
                   // Navigator.pushNamed(context, '/radoninfo');
                 },
