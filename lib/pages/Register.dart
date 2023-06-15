@@ -1,17 +1,15 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
 
-import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
-import 'package:shared_preferences/shared_preferences.dart';
 
 // final usernameController = TextEditingController();
 // final passwordController = TextEditingController();
 
 // get http => null;
 
-class Regster extends StatelessWidget {
-  const Regster({super.key});
+class Register extends StatelessWidget {
+  const Register({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -40,7 +38,7 @@ class Regster extends StatelessWidget {
           child: Column(
             children: <Widget>[
               Container(
-                color: Colors.indigo[900],
+                color: Color.fromARGB(255, 3, 37, 13),
                 width: 600,
                 child: const Image(
                   image: AssetImage('assets/images/logo.png'),

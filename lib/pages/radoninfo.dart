@@ -13,21 +13,20 @@ class Radoninfo extends StatefulWidget {
 
 class _RadoninfoState extends State<Radoninfo> {
   List<Map> _info = [
-    {'id': '100', 'Radon': '10', 'Temprature': '20', 'Humidtiy': '20'},
-    {'id': '200', 'Radon': '10', 'Temprature': '22', 'Humidtiy': '20'},
-    {'id': '300', 'Radon': '10', 'Temprature': '21', 'Humidtiy': '20'}
+    {'Radon': '10', 'Temp-inside': '20', 'Temp-outside': '20', 'Humidtiy-inside': '20', 'Humidtiy-outside': '20'},
   ];
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
         appBar: AppBar(
+          foregroundColor: Colors.black,
+          backgroundColor: Colors.amber[200],
           automaticallyImplyLeading: true,
-          backgroundColor: Color.fromARGB(255, 20, 44, 32),
           title: Text('DataTable'),
         ),
         body: Container(
-          height: double.infinity,
+          color: Color.fromARGB(255, 3, 37, 13),
           width: double.infinity,
           child: ListView(
             children: [
@@ -44,8 +43,12 @@ class _RadoninfoState extends State<Radoninfo> {
 
   DataTable _createDataTable() {
     return DataTable(
+      columnSpacing:double.minPositive,
+      showCheckboxColumn: false,
       columns: _createColumns(),
       rows: _createRows(),
+      dataRowColor:MaterialStateColor.resolveWith(
+          (states) => const Color.fromARGB(255, 234, 219, 175)) ,
       sortAscending: true,
       headingRowColor: MaterialStateColor.resolveWith(
           (states) => const Color.fromARGB(255, 234, 219, 175)),
@@ -54,20 +57,22 @@ class _RadoninfoState extends State<Radoninfo> {
 
   List<DataColumn> _createColumns() {
     return [
-      DataColumn(label: Text('ID')),
       DataColumn(label: Text('Radon')),
-      DataColumn(label: Text('Temprature')),
-      DataColumn(label: Text('Humidtiy'))
+      DataColumn(label: Icon(Icons.thermostat)),
+      DataColumn(label: Icon(Icons.thermostat_auto)),
+      DataColumn(label: Icon(Icons.air)),
+      DataColumn(label: Icon(Icons.air_outlined))
     ];
   }
 
   List<DataRow> _createRows() {
     return _info
         .map((info) => DataRow(cells: [
-              DataCell(Text('#' + info['id'].toString())),
               DataCell(Text(info['Radon'])),
-              DataCell(Text(info['Temprature'])),
-              DataCell(Text(info['Humidtiy']))
+              DataCell(Text(info['Temp-inside'])),
+              DataCell(Text(info['Temp-outside'])),
+              DataCell(Text(info['Humidtiy-inside'])),
+              DataCell(Text(info['Humidtiy-outside']))
             ]))
         .toList();
   }

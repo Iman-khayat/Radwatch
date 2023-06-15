@@ -57,7 +57,7 @@ class _WelcomeState extends State<Welcome> {
                       Navigator.pushNamed(context, '/Regster');
                     },
                     child: Text(
-                      "Regester",
+                      "Register",
                       style: TextStyle(
                           fontSize: 22, color: Color.fromARGB(255, 3, 37, 13)),
                     ),
@@ -75,13 +75,8 @@ class _WelcomeState extends State<Welcome> {
               ),
             ),
 
-            // Positioned(top: 4, child: Image.asset("assets/images/top.png")),
-            // Positioned(
-            //     bottom: 0,
-            //     child: Image.asset(
-            //       "assets/images/buttom.png",
-            //       width: 333,
-            //     )),
+            Positioned(top: 4, child: Image.asset("assets/images/top.png")),
+            Positioned(bottom: 0,child: Image.asset("assets/images/buttom.png",width: 333,)),
           ],
         ),
       ),

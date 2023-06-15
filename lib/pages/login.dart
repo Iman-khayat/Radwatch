@@ -1,8 +1,6 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
 
-import 'package:get/get.dart';
-import 'package:http/http.dart' as http;
 import 'package:newpro/api/api_client.dart';
 import 'package:newpro/models/data_loger_item.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -56,14 +54,12 @@ class login extends StatelessWidget {
           child: Column(
             children: <Widget>[
               Container(
-                color: Colors.indigo[900],
+                color: Color.fromARGB(255, 20, 44, 32),
                 width: 600,
                 child: const Image(
                   image: AssetImage('assets/images/logo.png'),
                   alignment: Alignment.topCenter,
                   // color: Colors.amber,
-                  height: 500,
-                  width: 500,
                   fit: BoxFit.fill,
                 ),
               ),
@@ -130,7 +126,7 @@ class login extends StatelessWidget {
                   //   print('Error: $e');
                   // }
 
-                  // Navigator.pushNamed(context, '/radoninfo');
+                  Navigator.pushNamed(context, '/radoninfo');
                 },
                 child: Text(
                   "log In",
